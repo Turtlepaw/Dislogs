@@ -1,0 +1,24 @@
+{
+  "name": "dislogs",
+  "version": "1.0.0",
+  "description": "✏️ A simple Discord bot for logging stuff on your server!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Turtlepaw/Dislogs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Turtlepaw/Dislogs/issues"
+  },
+  "homepage": "https://github.com/Turtlepaw/Dislogs#readme",
+  "dependencies": {
+    "discord": "^0.8.2",
+    "discordjsh": "^2.1.5"
+  }
+}
