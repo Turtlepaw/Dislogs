@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/Turtlepaw/Dislogs#readme",
   "dependencies": {
+    "common-tags": "^1.8.2",
     "discord": "^0.8.2",
-    "discordjsh": "^2.1.5"
+    "discordjsh": "^2.1.5",
+    "mongoose": "^6.1.8"
   }
 }

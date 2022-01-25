@@ -1,6 +1,7 @@
 const { CommandInteraction, Client } = require("discord.js");
 const jsh = require("discordjsh");
 const Embed = require("../Embed");
+const { Emojis } = require("../EmojiAPI");
 
 module.exports = {
     data: new jsh.commandBuilder()
@@ -14,9 +15,9 @@ module.exports = {
         await interaction.reply({
             ephemeral: true,
             embeds: new Embed()
-            .addField(`**Bot Ping:**`, `\`${client.ws.ping}ms\``)
-            .addField(`**Guilds/Servers:**`, `\`${client.guilds.cache.size} guilds\``)
-            .addField(`**Uptime:**`, `\`${client.uptime}\``)
+            .addField(`**${Emojis.stem_1} Bot Ping:**`, `\`${client.ws.ping}ms\``)
+            .addField(`**${Emojis.stem_1} Guilds/Servers:**`, `\`${client.guilds.cache.size} guilds\``)
+            .addField(`**${Emojis.reply_1} Uptime:**`, `\`${client.uptime}\``)
             .build()
         });
     }

@@ -4,14 +4,39 @@
     |      Dislogs 2022         |
     |———————————————————————————|
 */
-
+const mongoose = require("mongoose");
 const Discord = require("discord.js");
 const jsh = require("discordjsh");
 const config = require("./config");
 const {
     token,
-    clientID
+    clientID,
+    mongoDB
 } = require("./config.json");
+
+//Mongo stuff
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connection.on('connecting', () => {
+    console.log(`[MONGO_DB]`, "Mongoose: Logging in!")
+})
+
+mongoose.connection.on('connected', () => {
+    console.log(`[MONGO_DB]`, "Mongoose: Logged in!")
+})
+
+mongoose.connection.on('disconnecting', () => {
+    console.log(`[MONGO_DB]`, "Mongoose: Logging out")
+})
+
+mongoose.connection.on('disconnected', () => {
+    console.log(`[MONGO_DB]`, "Mongoose: Logged out")
+})
+
+mongoose.connection.on('error', error => {
+    console.log(`[MONGO_DB_ERROR] ` + error)
+});
+//End
 
 const ClientBuilder = new jsh.Client({
     token,
@@ -47,4 +72,12 @@ const client = ClientBuilder.create({
         "REACTION",
         "USER"
     ]
+});
+
+client.on("ready", async () => {
+    setTimeout(async () => {
+        await require("./EmojiAPI")(client);
+
+        console.log(`[BUILDING_EMOJIS]`, `Emojis Ready`);
+    }, 4000);
 });
