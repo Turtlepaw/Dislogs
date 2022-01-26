@@ -8,11 +8,13 @@ const mongoose = require("mongoose");
 const Discord = require("discord.js");
 const jsh = require("discordjsh");
 const config = require("./config");
+const guild = require('./Models/guild');
 const {
     token,
     clientID,
     mongoDB
 } = require("./config.json");
+const { readdirSync } = require("fs");
 
 //Mongo stuff
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -81,3 +83,21 @@ client.on("ready", async () => {
         console.log(`[BUILDING_EMOJIS]`, `Emojis Ready`);
     }, 4000);
 });
+
+const Events = readdirSync(`./Logs`).filter(e => e.endsWith(".js"));
+
+for(const Event of Events){
+    const event = require(`./Logs/` + Event);
+
+    if(event?.notEvent) continue;
+
+    client.on(event.eventId, async function (...args) {
+        await event.execute(...args, async function(guildDef){
+            const Find = await guild.findOne({
+                guildId: guildDef.id
+            });
+
+            return guildDef.channels.cache.get(Find.channelId);
+        }, client);
+    });
+}
