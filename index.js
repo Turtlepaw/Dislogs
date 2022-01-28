@@ -9,6 +9,7 @@ const Discord = require("discord.js");
 const jsh = require("discordjsh");
 const config = require("./config");
 const guild = require('./Models/guild');
+const InviteTracker = require("djs-invite-tracker").default;
 const {
     token,
     clientID,
@@ -76,6 +77,9 @@ const client = ClientBuilder.create({
     ]
 });
 
+//DJS Invites
+new InviteTracker(client).init();
+
 client.on("ready", async () => {
     setTimeout(async () => {
         await require("./EmojiAPI")(client);
@@ -98,6 +102,12 @@ for(const Event of Events){
             });
 
             return guildDef.channels.cache.get(Find.channelId);
+        }, async function(guildDef){
+            const Find = await guild.findOne({
+                guildId: guildDef.id
+            });
+
+            return Find.events.include(event.eventName);
         }, client);
     });
 }

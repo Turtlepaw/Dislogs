@@ -14,13 +14,16 @@ module.exports = {
      * @param {GuildMember} oldMember
      * @param {Function} fetchGuild
      */
-    async execute(oldMember, newMember, fetchGuild, client){
+    async execute(oldMember, newMember, fetchGuild, checkEvent, client){
         const channel = await fetchGuild(newMember.guild);
+        const Check = await checkEvent(newMember.guild);
+        if(!Check) return;
         const BaseEmbed = new Embed()
         .setAuthor({
             name: newMember.user.tag,
             iconURL: newMember.displayAvatarURL(),
         })
+        .setThumbnail(newMember.displayAvatarURL())
         .setFooter({
             text: newMember.id
         });

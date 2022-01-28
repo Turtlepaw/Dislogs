@@ -20,7 +20,9 @@
   "dependencies": {
     "common-tags": "^1.8.2",
     "discord": "^0.8.2",
+    "discord-button-helpers": "^4.0.0",
     "discordjsh": "^2.1.5",
+    "djs-invite-tracker": "^1.0.3",
     "mongoose": "^6.1.8"
   }
 }

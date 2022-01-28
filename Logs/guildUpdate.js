@@ -14,8 +14,10 @@ module.exports = {
      * @param {Guild} oldGuild
      * @param {Guild} newGuild
      */
-    async execute(oldGuild, newGuild, fetchGuild, client){
+    async execute(oldGuild, newGuild, fetchGuild, checkEvent, client){
         const channel = await fetchGuild(newGuild);
+        const Check = await checkEvent(newGuild);
+        if(!Check) return;
         const baseEmbed = new Embed()
         .setThumbnail(newGuild.iconURL());
         const Emoji = channel.permissionsFor(channel.guild.me).has(`USE_EXTERNAL_EMOJIS`) ? Emojis.update_dc.show : "📝";
